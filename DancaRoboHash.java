@@ -1,10 +1,7 @@
-import java.util.HashSet;
-import java.util.Arrays;
-import java.util.Set;
+import java.util.*;
 
-public class DancaRobo {
+public class DancaRoboHash {
     public static void main(String[] args) {
-
         int n = 79;
 
         int[] receita = {56, 74, 6, 30, 63, 32, 70, 8, 78, 52, 11, 67, 35, 
@@ -21,34 +18,29 @@ public class DancaRobo {
                          54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 
                          67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78};
 
-        Set<String> composicao= new HashSet<>();
-        int rodada =0;
-        composicao.add(Arrays.toString(posicoes)); 
-        while (true){
-            posicoes = mostraReceita(posicoes,receita);
+        Set<Integer> composicoes = new HashSet<>();
+        int rodada = 0;
+        composicoes.add(Arrays.hashCode(posicoes));
+
+        while (true) {
+            posicoes = mostraReceita(posicoes, receita);
             rodada++;
-            String composicaoAtual=Arrays.toString(posicoes);
-            if(composicao.contains(composicaoAtual)){
-                break; // composicao repetida, fim da dança
+            int hashAtual = Arrays.hashCode(posicoes);
+            if (composicoes.contains(hashAtual)) {
+                break;
             }
-            composicao.add(composicaoAtual);
+            composicoes.add(hashAtual);
         }
-        System.out.println("A dança durou " + rodada + " rodadas antes de repetir.");
+
+        System.out.println("A dança durou " + rodada + " rodadas.");
     }
-    
-    public static int [] mostraReceita(int[] posicoes, int [] receita) {
-        int n = posicoes.length;;
-        int [] novaOrdem = new int[n];
 
+    public static int[] mostraReceita(int[] posicoes, int[] receita) {
+        int n = posicoes.length;
+        int[] novaOrdem = new int[n];
         for (int i = 0; i < n; i++) {
-            int pos = receita[i];
-            novaOrdem[i] = posicoes[pos];
-            System.out.print(novaOrdem[i]);
-
+            novaOrdem[i] = posicoes[receita[i]];
         }
-        System.out.print("\n");
         return novaOrdem;
     }
-
 }
-
