@@ -1,0 +1,52 @@
+import java.util.*;
+
+public class DancaRoboV3{
+    public static void main(String[] args) {
+        
+        int n = 199;
+
+        int[] receita = {150, 38, 172, 83, 11, 107, 110, 58, 47, 147, 198, 70, 164, 173, 35, 76,
+                         90, 14, 43, 148, 160, 61, 5, 137, 48, 191, 123, 145, 85, 13, 140, 112, 
+                         106, 1, 99, 34, 2, 82, 79, 42, 87, 151, 33, 86, 22, 36, 9, 165, 116, 92, 
+                         57, 91, 21, 20, 152, 63, 193, 197, 29, 161, 53, 188, 121, 155, 6, 119, 
+                         125, 71, 194, 39, 8, 32, 169, 81, 114, 143, 74, 0, 108, 73, 149, 109, 
+                         135, 131, 122, 115, 95, 77, 127, 44, 7, 66, 179, 69, 84, 50, 196, 96, 
+                         158, 31, 146, 98, 56, 16, 24, 120, 80, 142, 186, 104, 177, 93, 17, 105, 
+                         139, 192, 15, 103, 54, 166, 18, 27, 37, 157, 4, 126, 132, 94, 168, 97, 
+                         182, 138, 102, 162, 159, 59, 130, 141, 67, 62, 12, 176, 184, 136, 60, 
+                         55, 28, 65, 180, 45, 101, 40, 3, 175, 185, 19, 128, 25, 156, 189, 144, 
+                         64, 163, 72, 26, 117, 167, 187, 41, 153, 68, 170, 51, 190, 10, 129, 195, 
+                         23, 88, 49, 111, 133, 52, 171, 178, 89, 118, 75, 46, 124, 174, 113, 183, 
+                         181, 100, 154, 78, 30, 134};
+
+        int[] posicoes = new int[n];
+        for (int i = 0; i < n; i++) {
+            posicoes[i] = i;
+        }
+
+        Set<Integer> composicoes = new HashSet<>();
+        int rodada = 0;
+        composicoes.add(Arrays.hashCode(posicoes));
+
+        while (true) {
+            posicoes = mostraReceita(posicoes, receita);
+            rodada++;
+            int hashAtual = Arrays.hashCode(posicoes);
+            if (composicoes.contains(hashAtual)) {
+                break;
+            }
+            composicoes.add(hashAtual);
+        }
+
+        System.out.println("A dança durou " + rodada + " rodadas.");
+    }
+
+    public static int[] mostraReceita(int[] posicoes, int[] receita) {
+        int n = posicoes.length;
+        int[] novaOrdem = new int[n];
+        for (int i = 0; i < n; i++) {
+            novaOrdem[i] = posicoes[receita[i]];
+        }
+        return novaOrdem;
+    }
+}
